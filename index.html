@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NikhilTheOG | Modern Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a0033 25%, #2d1b69 50%, #6b21ff 100%);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .shape {
+            position: absolute;
+            background: linear-gradient(45deg, #8b5cf6, #a78bfa);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+        }
+
+        .shape:nth-child(1) { width: 100px; height: 100px; left: 10%; animation-delay: 0s; }
+        .shape:nth-child(2) { width: 60px; height: 60px; left: 80%; animation-delay: 5s; }
+        .shape:nth-child(3) { width: 80px; height: 80px; left: 50%; animation-delay: 10s; }
+        .shape:nth-child(4) { width: 40px; height: 40px; left: 70%; animation-delay: 15s; }
+
+        @keyframes float {
+            from {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            to {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 4rem 2rem 2rem;
+            position: relative;
+        }
+
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            box-shadow: 0 0 40px rgba(139, 92, 246, 0.6);
+            border: 3px solid rgba(139, 92, 246, 0.3);
+            position: relative;
+            animation: pulse 3s infinite;
+            overflow: hidden;
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 40px rgba(139, 92, 246, 0.6); }
+            50% { transform: scale(1.05); box-shadow: 0 0 60px rgba(139, 92, 246, 0.8); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .main-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #8b5cf6, #06b6d4, #10b981);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: slideInDown 1s ease-out;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #a78bfa;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            animation: slideInUp 1s ease-out 0.5s both;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            animation: fadeIn 1s ease-out 1s both;
+        }
+
+        nav a {
+            padding: 0.8rem 1.5rem;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 50px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        nav a:hover::before {
+            left: 100%;
+        }
+
+        nav a:hover {
+            background: rgba(139, 92, 246, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
+        }
+
+        /* Sections */
+        .section {
+            margin: 4rem auto;
+            max-width: 1200px;
+            padding: 0 2rem;
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #8b5cf6, #06b6d4);
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        .about-content {
+            background: rgba(15, 15, 35, 0.8);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #8b5cf6, transparent);
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #e2e8f0;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .highlight {
+            color: #8b5cf6;
+            font-weight: 600;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .skill-category {
+            background: rgba(15, 15, 35, 0.8);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            backdrop-filter: blur(20px);
+        }
+
+        .skill-category h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: #8b5cf6;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .skill-bar {
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-bar label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #a78bfa;
+            font-weight: 500;
+        }
+
+        .progress {
+            width: 100%;
+            height: 8px;
+            background: rgba(139, 92, 246, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #8b5cf6, #06b6d4);
+            border-radius: 10px;
+            transition: width 2s ease-in-out;
+            position: relative;
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .service-card {
+            background: rgba(15, 15, 35, 0.8);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            backdrop-filter: blur(20px);
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .service-card:hover::before {
+            left: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(139, 92, 246, 0.3);
+            border-color: rgba(139, 92, 246, 0.5);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .service-icon img {
+            width: 7rem;
+            height: 7rem;
+            object-fit: contain;
+        }
+
+        .service-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.4rem;
+            color: #8b5cf6;
+            margin-bottom: 1rem;
+        }
+
+        .service-desc {
+            color: #e2e8f0;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .hire-btn {
+            background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .hire-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
+        }
+
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-card {
+            background: rgba(15, 15, 35, 0.8);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            backdrop-filter: blur(20px);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(139, 92, 246, 0.3);
+        }
+
+        .contact-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .contact-icon img {
+            width: 7rem;
+            height: 7rem;
+            object-fit: contain;
+        }
+
+        .contact-card h3 {
+            color: #8b5cf6;
+            margin-bottom: 1rem;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .contact-card a {
+            color: #e2e8f0;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .contact-card a:hover {
+            color: #8b5cf6;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+            background: rgba(15, 15, 35, 0.9);
+            border-top: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        /* Animations */
+        @keyframes slideInDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes slideInUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Scroll Animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-title { font-size: 2.5rem; }
+            .section { margin: 2rem auto; padding: 0 1rem; }
+            .section-title { font-size: 2rem; }
+            nav { flex-wrap: wrap; }
+            .services-grid, .skills-grid, .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="floating-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="avatar">
+            <img src="https://cdn.discordapp.com/avatars/1262979277058474110/ed66e2a128a9725848db4c816dd8b13a.png?size=1024" alt="NikhilTheOG">
+        </div>
+        <h1 class="main-title">NikhilTheOG</h1>
+        <p class="subtitle">Gamer • Discord Developer • Bot Developer</p>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#services">Services</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <!-- About Section -->
+    <section class="section animate-on-scroll" id="about">
+        <h2 class="section-title">ABOUT ME!</h2>
+        <div class="about-content">
+            <p class="about-text">
+                Hi, I'm <span class="highlight">Nikhil</span> - a passionate <span class="highlight">gamer</span> and aspiring <span class="highlight">Discord bot developer</span> with <span class="highlight">1 year of learning experience</span> in coding. I'm passionate about learning <span class="highlight">Python, Java</span>, and <span class="highlight">HTML/CSS</span> for creating amazing Discord bots and websites.
+            </p>
+            <p class="about-text">
+                As a dedicated student and self-learner, I'm excited about exploring the world of <span class="highlight">bot development and Discord automation</span>. I've had the opportunity to deploy more than <span class="highlight">20+ Discord bots</span> and built <span class="highlight">10+ portfolio websites</span>, ranging from simple automation bots to complex, feature-rich Discord applications.
+            </p>
+            <p class="about-text">
+                I'm based in <span class="highlight">India</span> and always eager to take on new challenges in the world of Discord bot development and backend systems. If you'd like to get in touch, feel free to contact me via Discord or Instagram.
+            </p>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="section animate-on-scroll" id="skills">
+        <h2 class="section-title">My Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <h3>Coding Skills</h3>
+                <div class="skill-bar">
+                    <label>HTML</label>
+                    <div class="progress">
+                        <div class="progress-fill" style="width: 50%"></div>
+                    </div>
+                </div>
+                <div class="skill-bar">
+                    <label>CSS</label>
+                    <div class="progress">
+                        <div class="progress-fill" style="width: 30%"></div>
+                    </div>
+                </div>
+                <div class="skill-bar">
+                    <label>JavaScript</label>
+                    <div class="progress">
+                        <div class="progress-fill" style="width: 70%"></div>
+                    </div>
+                </div>
+                <div class="skill-bar">
+                    <label>Python</label>
+                    <div class="progress">
+                        <div class="progress-fill" style="width: 90%"></div>
+                    </div>
+                </div>
+                <div class="skill-bar">
+                    <label>Java</label>
+                    <div class="progress">
+                        <div class="progress-fill" style="width: 80%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3>Other Skills</h3>
+                <div class="skill-bar">
+                    <label>Discord Bot Development</label>
+                    <div class="progress">
+                        <div class="progress-fill" style="width: 95%"></div>
+                    </div>
+                </div>
+                <div class="skill-bar">
+                    <label>Server Management</label>
+                    <div class="progress">
+                        <div class="progress-fill" style="width: 98%"></div>
+                    </div>
+                </div>
+                <div class="skill-bar">
+                    <label>Minecraft Server Development</label>
+                    <div class="progress">
+                        <div class="progress-fill" style="width: 90%"></div>
+                    </div>
+                </div>
+                <div class="skill-bar">
+                    <label>Gaming</label>
+                    <div class="progress">
+                        <div class="progress-fill" style="width: 90%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section animate-on-scroll" id="services">
+        <h2 class="section-title">My Services</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <span class="service-icon">
+                    <img src="https://cdn.discordapp.com/attachments/1383418752863047761/1408324878192349265/Picsart_25-08-22_11-09-21-863.png?ex=68a95440&is=68a802c0&hm=b91f2b51db2657c64f51f031f1a99191468bd6f2339abad2dacb968b3f0d0b62&" alt="Discord">
+                </span>
+                <h3 class="service-title">Discord Server Development</h3>
+                <p class="service-desc">I can help you for making servers on Discord of any content. Custom bots, moderation systems, and community management solutions.</p>
+                <a href="#contact" class="hire-btn">Hire Me!</a>
+            </div>
+            <div class="service-card">
+                <span class="service-icon">
+                    <img src="https://cdn.discordapp.com/attachments/1403999609461801063/1408320433241063494/1000387239-removebg-preview.png?ex=68a9501c&is=68a7fe9c&hm=254b271e0a1280d4c801f8f586875ba82b35b844afb38b33c472cdc93018ca71&" alt="Minecraft">
+                </span>
+                <h3 class="service-title">Minecraft Server Development</h3>
+                <p class="service-desc">I can help you for making servers on Minecraft. Complete server setup, plugins, and custom game modes.</p>
+                <a href="#contact" class="hire-btn">Hire Me!</a>
+            </div>
+            <div class="service-card">
+                <span class="service-icon">
+                    <img src="https://cdn.discordapp.com/attachments/1383418752863047761/1408324901336776817/1000387225-removebg-preview.png?ex=68a95445&is=68a802c5&hm=6c25f2614b1df54b09b3f780b83ceb29b30e46867562ec6db8b7f910d3bd39fb&" alt="Website">
+                </span>
+                <h3 class="service-title">Website Development</h3>
+                <p class="service-desc">I can help you as assistance and I can give suggestion information, animation to your Website. Modern, responsive web solutions.</p>
+                <a href="#contact" class="hire-btn">Hire Me!</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section animate-on-scroll" id="contact">
+        <h2 class="section-title">Contact Me</h2>
+        <p style="text-align: center; color: #e2e8f0; margin-bottom: 2rem;">I would love to hear from you! Reach out to me through any of the platforms below:</p>
+        <div class="contact-grid">
+            <div class="contact-card">
+                <span class="contact-icon">
+                    <img src="https://cdn.discordapp.com/attachments/1383418752863047761/1408324878192349265/Picsart_25-08-22_11-09-21-863.png?ex=68a95440&is=68a802c0&hm=b91f2b51db2657c64f51f031f1a99191468bd6f2339abad2dacb968b3f0d0b62&" alt="Discord">
+                </span>
+                <h3>Contact me on Discord</h3>
+                <a href="https://discord.com/users/1262979277058474110" target="_blank">NikhilTheOG</a>
+            </div>
+            <div class="contact-card">
+                <span class="contact-icon">
+                    <img src="https://cdn.discordapp.com/attachments/1383418752863047761/1408324890561478716/Picsart_25-08-22_11-08-45-403.png?ex=68a95443&is=68a802c3&hm=ec60be1b79e5016c5862273f73d95a9f5a4c2dcbc555d60c35d2bdd790c18c0a&" alt="Instagram">
+                </span>
+                <h3>Follow me on Instagram</h3>
+                <a href="https://www.instagram.com/its_nikhiltheog?igsh=dnc1OTN1Z3kyMGo5" target="_blank">@NikhilTheOG</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 by NikhilTheOG. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Animate skill bars when in view
+        const skillBars = document.querySelectorAll('.progress-fill');
+        const skillObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const width = entry.target.style.width;
+                    entry.target.style.width = '0%';
+                    setTimeout(() => {
+                        entry.target.style.width = width;
+                    }, 100);
+                }
+            });
+        });
+
+        skillBars.forEach(bar => {
+            skillObserver.observe(bar);
+        });
+
+        // Add some interactive effects
+        document.querySelectorAll('.service-card, .contact-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
